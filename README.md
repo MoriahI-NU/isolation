@@ -1,4 +1,4 @@
-# Isolation Trees
+# Isolation Forest
 ## A Comparison Between Go, Python, and R
 
 ### The Setup
