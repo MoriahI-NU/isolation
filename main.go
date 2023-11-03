@@ -1,12 +1,13 @@
 package main
 
 import (
+	"encoding/csv"
 	"fmt"
+	"os"
+	"strconv"
 
 	"github.com/sjwhitworth/golearn/base"
 	"github.com/sjwhitworth/golearn/trees"
-
-	"os"
 
 	"github.com/kshedden/datareader"
 	"gonum.org/v1/gonum/stat"
@@ -74,14 +75,36 @@ func main() {
 			min = temp
 		}
 	}
-	fmt.Println("average score:", avgScore/1000)
+	fmt.Println("average score:", avgScore/60000)
 	fmt.Println("minimum:", min)
 
-	//Print all scores
-	fmt.Println("Anomaly Scores for outliers are ")
+	////////////////////////////
+	//Write scores to CSV
+	////////////////////////////
+
+	// Create new file/writer
+	file, err := os.Create("GoScores.csv")
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+
+	writer := csv.NewWriter(file)
+
+	// Column Header
+	writer.Write([]string{"Go_Score"})
+	writer.Flush()
+
+	// Convert to string format and write all scores
 	for i := 1000; i < 60000; i++ {
-		fmt.Print("      ")
-		fmt.Println(preds[i])
+		predictionStr := strconv.FormatFloat(preds[i], 'f', -1, 64)
+		writer.Write([]string{predictionStr})
+	}
+
+	writer.Flush()
+
+	if err := writer.Error(); err != nil {
+		panic(err)
 	}
 
 	/////////////////////////////////////////////////////////////
