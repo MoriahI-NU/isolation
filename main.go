@@ -168,7 +168,7 @@ func main() {
 	//Calculate correlation scores
 	correlation2 := stat.Correlation(preds, RValues_Sol, nil)
 
-	fmt.Printf("Correlation between preds and R values: %.2f\n", correlation2)
+	fmt.Printf("Correlation between preds and R solitude values: %.2f\n", correlation2)
 
 	// Create a correlation plot
 	p2, err := plot.New()
@@ -211,7 +211,7 @@ func main() {
 	//Calculate correlation scores
 	correlation3 := stat.Correlation(preds, RValues_Iso, nil)
 
-	fmt.Printf("Correlation between preds and R values: %.2f\n", correlation3)
+	fmt.Printf("Correlation between preds and R isotree values: %.2f\n", correlation3)
 
 	// Create a correlation plot
 	p3, err := plot.New()
